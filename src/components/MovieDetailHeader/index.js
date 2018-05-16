@@ -25,15 +25,17 @@ class MovieDetailHeader extends Component {
         <div className="grid-item" id="firstMovieDetailBlock">
               {
                 properties.map((item,index)=>{
-                  if(this.props.movie[item] != 'N/A' &&
-                     this.state.excludeProps.indexOf(item) == -1 &&
-                     this.state.secondRowProps.indexOf(item) == -1) {
+                  if(this.props.movie[item] !== 'N/A' &&
+                     this.state.excludeProps.indexOf(item) === -1 &&
+                     this.state.secondRowProps.indexOf(item) === -1) {
                     return (
                       <p className="detail-row" key={index}>
                         <span className="detail-label">{item}</span>
                         <span className="detail-value">{this.props.movie[item]}</span>
                       </p>
                     )
+                  } else {
+                    return false;
                   }
                 })
               }
@@ -41,15 +43,17 @@ class MovieDetailHeader extends Component {
         <div className="grid-item" id="secondMovieDetailBlock">
               {
                 properties.map((item,index)=>{
-                  if(this.props.movie[item] != 'N/A' &&
-                     this.state.excludeProps.indexOf(item) == -1 &&
-                     this.state.secondRowProps.indexOf(item) != -1) {
+                  if(this.props.movie[item] !== 'N/A' &&
+                     this.state.excludeProps.indexOf(item) === -1 &&
+                     this.state.secondRowProps.indexOf(item) !== -1) {
                     return (
                       <p className="detail-row" key={index}>
                         <span className="detail-label">{item}</span>
                         <span className="detail-value">{this.props.movie[item]}</span>
                       </p>
                     )
+                  } else {
+                    return false;
                   }
                 })
               }

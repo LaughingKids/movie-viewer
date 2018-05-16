@@ -1,0 +1,6 @@
+.MovieGenreSelector {
+  padding: 15px;
+}
+.MovieGenreSelector select {
+  float:right;
+}

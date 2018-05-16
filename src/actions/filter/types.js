@@ -1,0 +1,2 @@
+export const PICK_UP_MOVIE_BY_GENRE = 'PICK_UP_MOVIE_BY_GENRE';
+export const INIT_MOVIE_LIST = 'INIT_MOVIE_LIST';
