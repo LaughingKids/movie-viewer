@@ -4,7 +4,7 @@ import axios from 'axios';
 import _G from '../../Global';
 import MovieDetailHeader from '../../components/MovieDetailHeader';
 import MovieGenreSelector from '../../components/MovieGenreSelector';
-// import MovieCarousel from '../../components/MovieCarousel';
+import MovieCarousel from '../../components/MovieCarousel';
 
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -14,17 +14,20 @@ class MovieViewer extends Component {
   constructor(props){
     super(props);
     this.state = {
-      movies:[],
-      dataReady:false
+      movies   : [],
+      dataReady: false,
+      movie    : null
     }
     this.selectorChange = this.selectorChange.bind(this);
+    this.carouselCursorChangeHandler = this.carouselCursorChangeHandler.bind(this);
   }
   componentDidMount(){
     axios.get(_G.apiUrl).then((resp)=>{
       this.props.filterActions.initMovieList(resp.data);
       this.setState({
         movies: resp.data,
-        dataReady: true
+        dataReady: true,
+        movie : resp.data[0]
       })
     }).catch((e)=>{
       console.log(e);
@@ -33,8 +36,14 @@ class MovieViewer extends Component {
   selectorChange(event){
     this.props.filterActions.pickUpMovieByGenre(event.target.value);
     this.setState({
-      movies: this.props.filter.filteredMovies
+      movies: this.props.filter.filteredMovies,
+      movie : this.props.filter.filteredMovies[0]
     });
+  }
+  carouselCursorChangeHandler(event){
+    this.setState({
+      movie : this.state.movies[event.target.dataset.index]
+    })
   }
   render() {
     if(!this.state.dataReady) {
@@ -46,15 +55,9 @@ class MovieViewer extends Component {
     } else {
       return (
         <div className="MovieViewer">
-          <MovieDetailHeader movie={this.props.filter.filteredMovies[0]}></MovieDetailHeader>
+          <MovieDetailHeader movie={this.state.movie}></MovieDetailHeader>
           <MovieGenreSelector onChangeAction={this.selectorChange} genres={this.props.filter.selectorOptions}></MovieGenreSelector>
-          <ul>
-            {
-              this.state.movies.map((movie)=>(
-                <li>{movie.Title}</li>
-              ))
-            }
-          </ul>
+          <MovieCarousel carouselCursorChangeHandler={this.carouselCursorChangeHandler} movies={this.state.movies}></MovieCarousel>
         </div>
       )
     }
