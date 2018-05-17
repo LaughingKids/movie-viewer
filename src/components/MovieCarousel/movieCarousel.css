@@ -1,0 +1,22 @@
+.MovieCarousel button {
+  background-color: rgba(0,0,0,0.4);
+  border-radius: 25px;
+}
+.slick-next:focus,
+.slick-next:hover,
+.slick-prev:focus,
+.slick-prev:hover {
+  background-color: rgba(0,0,0,0.4);
+
+}
+@media screen and (max-width: 991px) {
+  .slick-list {
+    margin: 0px 20px;
+  }
+  .slick-next {
+    right: 0px;
+  }
+  .slick-prev {
+    left: 0px;
+  }
+}
